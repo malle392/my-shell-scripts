@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -x
 # GitHub API URL
 API_URL="https://api.github.com"
 
@@ -25,8 +25,8 @@ function list_users_with_read_access {
     local endpoint="repos/${REPO_OWNER}/${REPO_NAME}/collaborators"
 
     # Fetch the list of collaborators on the repository
-    collaborators="$(github_api_get "$endpoint" | jq -r '.[] | select(.permissions.pull == true) | .login')"
-
+   collaborators="$(github_api_get "$endpoint" | jq -r '.[] | select(.permissions.pull == true) | .login')"
+    #collaborators="$(github_api_get "$endpoint" )"
     # Display the list of collaborators with read access
     if [[ -z "$collaborators" ]]; then
         echo "No users with read access found for ${REPO_OWNER}/${REPO_NAME}."
